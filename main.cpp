@@ -7,7 +7,7 @@ int main()
 {
     int N;
     cout<<"Iveskite studentu skaiciu: \n";
-    while(!(cin >> N))
+    while(!(cin >> N) || N<0)
     {
         cout << "Bloga ivestis! Iveskite studentu skaiciu skaitmeniu";
         cin.clear();
@@ -38,7 +38,7 @@ int main()
             cout<<"\n";
         }
         cout<<"Iveskite savo namu darbu uzduociu skaiciu: \n";
-        while(!(cin >> homeworkCount[i]))
+        while(!(cin >> homeworkCount[i]) || homeworkCount[i]<0)
         {
             cout << "Bloga ivestis! Iveskite savo namu darbu uzduociu skaiciu";
             cin.clear();
@@ -48,10 +48,11 @@ int main()
         homeworkSum[i] = 0;
         for(int j=0; j<homeworkCount[i]; j++)
         {
-            cout<<"Iveskite savo namu darbu bala: \n";
-            while(!(cin >> homework[i][j]))
+            cout<<"Iveskite savo " << j+1 << " namu darbu bala: \n";
+
+            while(!(cin >> homework[i][j]) || homework[i][j] >10 || homework[i][j]<0)
             {
-                cout << "Bloga ivestis! Iveskite savo namu darbu bala skaiciumi";
+                cout << "Bloga ivestis! Iveskite savo namu darbu bala skaiciumi (0-10)";
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(),'\n');
                 cout<<"\n";
@@ -59,7 +60,7 @@ int main()
             homeworkSum[i] += homework[i][j];
         }
         cout<<"Iveskite savo egzamino bala: \n";
-        while(!(cin >> exam[i]))
+        while(!(cin >> exam[i]) || exam[i] >10 || exam[i]<0)
         {
             cout << "Bloga ivestis! Iveskite savo namu darbu bala skaiciumi";
             cin.clear();
