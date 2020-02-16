@@ -43,29 +43,35 @@ int main()
             cout<<"\n";
         }
 
-        cout<<"Iveskite savo namu darbu uzduociu skaiciu: \n";
-        while(!(cin >> homeworkCount[i]) || homeworkCount[i]<0)
-        {
-            cout << "Bloga ivestis! Iveskite savo namu darbu uzduociu skaiciu";
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(),'\n');
-            cout<<"\n";
-        }
-
         homeworkSum[i] = 0;
-        for(int j=0; j<homeworkCount[i]; j++)
+        int skc;
+        bool veda;
+        string ats;
+        skc = 0;
+        veda = true;
+        while(veda)
         {
-            cout<<"Iveskite savo " << j+1 << " namu darbu bala: \n";
+            cout<<"Iveskite savo " << skc+1 << " namu darbu bala: \n";
 
-            while(!(cin >> homework[i][j]) || homework[i][j] >10 || homework[i][j]<0)
+            while(!(cin >> homework[i][skc]) || homework[i][skc] >10 || homework[i][skc]<0)
             {
                 cout << "Bloga ivestis! Iveskite savo namu darbu bala skaiciumi (0-10)";
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(),'\n');
                 cout<<"\n";
             }
-            homeworkSum[i] += homework[i][j];
+            homeworkSum[i] += homework[i][skc];
+            skc++;
+            cout<<"Ar norite toliau vesti namu darbu balus? (taip - y, ne - n) \n";
+            cin>>ats;
+            if(ats == "n")
+            {
+                veda=false;
+                homeworkCount[i] = skc;
+            }
         }
+
+
 
         cout<<"Iveskite savo egzamino bala: \n";
         while(!(cin >> exam[i]) || exam[i] >10 || exam[i]<0)
