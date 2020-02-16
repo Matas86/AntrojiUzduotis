@@ -2,6 +2,7 @@
 #include <limits>
 #include <iomanip>
 #include <algorithm>
+#include <vector>
 using namespace std;
 
 int main()
@@ -20,7 +21,9 @@ int main()
     string name[N], surname[N];
     int homeworkCount[N];
     int homeworkSum[N];
-    int homework[N][1000], exam[N];
+    vector<vector<int>> homework;
+    homework.reserve(1000);
+    int exam[N];
     double finalGrade[N];
 
     for(int i=0; i<N; i++)
@@ -49,19 +52,21 @@ int main()
         string ats;
         skc = 0;
         veda = true;
+        int skaicius;
         while(veda)
         {
             cout<<"Iveskite savo " << skc+1 << " namu darbu bala: \n";
 
-            while(!(cin >> homework[i][skc]) || homework[i][skc] >10 || homework[i][skc]<0)
+            while(!(cin >> skaicius || skaicius>10 || skaicius<0))
             {
                 cout << "Bloga ivestis! Iveskite savo namu darbu bala skaiciumi (0-10)";
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(),'\n');
                 cout<<"\n";
             }
-            homeworkSum[i] += homework[i][skc];
+            homeworkSum[i] += skaicius;
             skc++;
+            homework[i].push_back(skaicius);
             cout<<"Ar norite toliau vesti namu darbu balus? (taip - y, ne - n) \n";
             cin>>ats;
             if(ats == "n")
@@ -85,7 +90,7 @@ int main()
 
     }
 
-    cout<<"Isvesti vidurki ar mediana? (Vidurkis - v, Mediana - m \n";
+    cout<<"Norite gauti vidurki ar mediana? (Vidurkis - v, Mediana - m \n";
     string temp;
 
     cin>>temp;
