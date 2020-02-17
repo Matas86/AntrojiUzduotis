@@ -190,20 +190,6 @@ int main()
         for(int i=0; i<N; i++)
         {
 
-            /*for(int j = 0; j<homeworkCount[i]-1; j++)
-            {
-                for(int k = j+1; k<homeworkCount[i]; k++)
-                {
-                    if(homework[i][j]>homework[i][k])
-                    {
-                        int tempas;
-                        tempas= homework[i][j];
-                        homework[i][j] = homework[i][k];
-                        homework[i][k] = tempas;
-                    }
-                }
-            }*/
-
             sort(stud[i].homework.begin(), stud[i].homework.end());
 
 
