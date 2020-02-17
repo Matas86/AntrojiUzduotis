@@ -3,7 +3,19 @@
 #include <iomanip>
 #include <algorithm>
 #include <vector>
+
 using namespace std;
+
+struct student
+{
+    string name;
+    string surname;
+    int homeworkCount;
+    int homeworkSum;
+    vector<int> homework;
+    int exam;
+    double finalGrade;
+};
 
 int main()
 {
@@ -18,18 +30,12 @@ int main()
         cout<<"\n";
     }
 
-    string name[N], surname[N];
-    int homeworkCount[N];
-    int homeworkSum[N];
-    vector<vector<int>> homework;
-    homework.reserve(1000);
-    int exam[N];
-    double finalGrade[N];
+    student stud[N];
 
     for(int i=0; i<N; i++)
     {
         cout<<"Iveskite savo varda: \n";
-        while(!(cin >> name[i]))
+        while(!(cin >> stud[i].name))
         {
             cout << "Bloga ivestis! Iveskite savo varda";
             cin.clear();
@@ -38,7 +44,7 @@ int main()
         }
 
         cout<<"Iveskite savo pavarde: \n";
-        while(!(cin >> surname[i]))
+        while(!(cin >> stud[i].surname))
         {
             cout << "Bloga ivestis! Iveskite savo pavarde";
             cin.clear();
@@ -46,13 +52,13 @@ int main()
             cout<<"\n";
         }
 
-        homeworkSum[i] = 0;
         int skc;
         bool veda;
         string ats;
         skc = 0;
         veda = true;
         int skaicius;
+        stud[i].homeworkSum = 0;
         while(veda)
         {
             cout<<"Iveskite savo " << skc+1 << " namu darbu bala: \n";
@@ -64,29 +70,29 @@ int main()
                 cin.ignore(numeric_limits<streamsize>::max(),'\n');
                 cout<<"\n";
             }
-            homeworkSum[i] += skaicius;
+            stud[i].homeworkSum += skaicius;
             skc++;
-            homework[i].push_back(skaicius);
+            stud[i].homework.push_back(skaicius);
             cout<<"Ar norite toliau vesti namu darbu balus? (taip - y, ne - n) \n";
             cin>>ats;
             if(ats == "n")
             {
                 veda=false;
-                homeworkCount[i] = skc;
+                stud[i].homeworkCount = skc;
             }
         }
 
 
 
         cout<<"Iveskite savo egzamino bala: \n";
-        while(!(cin >> exam[i]) || exam[i] >10 || exam[i]<0)
+        while(!(cin >> stud[i].exam) || stud[i].exam >10 || stud[i].exam<0)
         {
             cout << "Bloga ivestis! Iveskite savo namu darbu bala skaiciumi";
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(),'\n');
             cout<<"\n";
         }
-        finalGrade[i] = ((homeworkSum[i]*1.0/homeworkCount[i]) * 0.4) + (0.6*exam[i]);
+        stud[i].finalGrade = ((stud[i].homeworkSum*1.0/stud[i].homeworkCount) * 0.4) + (0.6*stud[i].exam);
 
     }
 
@@ -102,7 +108,7 @@ int main()
 
         for(int i=0; i<N; i++)
         {
-            cout<<setw(20)<<left<<surname[i]<<setw(10)<<left<<name[i]<<setw(10)<<left<<fixed<<setprecision(2)<<finalGrade[i]<<"\n";
+            cout<<setw(20)<<left<<stud[i].surname<<setw(10)<<left<<stud[i].name<<setw(10)<<left<<fixed<<setprecision(2)<<stud[i].finalGrade<<"\n";
         }
     }
     else if( temp == "m")
@@ -113,7 +119,7 @@ int main()
         for(int i=0; i<N; i++)
         {
 
-            for(int j = 0; j<homeworkCount[i]-1; j++)
+            /*for(int j = 0; j<homeworkCount[i]-1; j++)
             {
                 for(int k = j+1; k<homeworkCount[i]; k++)
                 {
@@ -125,17 +131,19 @@ int main()
                         homework[i][k] = tempas;
                     }
                 }
-            }
+            }*/
+
+            sort(stud[i].homework.begin(), stud[i].homework.end());
 
 
-            if(homeworkCount[i]%2==1)
+            if(stud[i].homeworkCount%2==1)
             {
 
-                cout<<setw(20)<<left<<surname[i]<<setw(10)<<left<<name[i]<<setw(10)<<left<<fixed<<setprecision(2)<<homework[i][homeworkCount[i]/2]<<"\n";
+                cout<<setw(20)<<left<<stud[i].surname<<setw(10)<<left<<stud[i].name<<setw(10)<<left<<fixed<<setprecision(2)<<stud[i].homework[(stud[i].homeworkCount)/2]<<"\n";
             }
             else
             {
-                cout<<setw(20)<<left<<surname[i]<<setw(10)<<left<<name[i]<<setw(10)<<left<<fixed<<setprecision(2)<<(homework[i][homeworkCount[i]/2] + homework[i][(homeworkCount[i]/2)+1])/2.0<<"\n";
+                cout<<setw(20)<<left<<stud[i].surname<<setw(10)<<left<<stud[i].name<<setw(10)<<left<<fixed<<setprecision(2)<<(stud[i].homework[(stud[i].homeworkCount)/2 - 1] + stud[i].homework[((stud[i].homeworkCount)/2)])/2.0<<"\n";
             }
 
         }
