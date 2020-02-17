@@ -196,7 +196,7 @@ int main()
             if(stud[i].homeworkCount%2==1)
             {
 
-                cout<<setw(20)<<left<<stud[i].surname<<setw(10)<<left<<stud[i].name<<setw(10)<<left<<fixed<<setprecision(2)<<stud[i].homework[(stud[i].homeworkCount)/2]<<"\n";
+                cout<<setw(20)<<left<<stud[i].surname<<setw(10)<<left<<stud[i].name<<setw(10)<<left<<fixed<<setprecision(2)<<stud[i].homework[(stud[i].homeworkCount)/2]*1.0<<"\n";
             }
             else
             {
