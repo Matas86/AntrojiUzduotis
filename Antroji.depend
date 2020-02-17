@@ -4,10 +4,12 @@
 	<limits>
 	<iomanip>
 
-1581961534 source:c:\users\matisimo\desktop\antra\antrojiuzduotis\main.cpp
+1581962320 source:c:\users\matisimo\desktop\antra\antrojiuzduotis\main.cpp
 	<iostream>
 	<limits>
 	<iomanip>
 	<algorithm>
 	<vector>
+	<random>
+	<time.h>
 
