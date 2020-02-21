@@ -5,6 +5,7 @@
 #include <vector>
 #include <random>
 #include <time.h>
+#include <fstream>
 using namespace std;
 
 const char duomenys [] = "kursiokai.txt";
@@ -20,7 +21,7 @@ struct student
     double finalGrade;
     bool random;
 };
-void Skaityk(student stud[]);
+void Skaityk(student stud[], int &N);
 
 void Isvesk(student stud[], int N);
 
@@ -40,9 +41,9 @@ int main()
     if(failas == "y")
     {
 
-        int N = 100000;
+        int N = 10;
         student stud[N];
-        //Skaityk(stud);
+        Skaityk(stud, N);
     }
     else
     {
@@ -245,5 +246,26 @@ void Isvesk(student stud[], int N)
     {
         cout<<"Bloga įvestis. \n";
     }
+}
+void Skaityk(student stud[], int &N)
+{
+    ifstream file("kursiokai.txt");
+    string line;
+    vector<string> split;
+    N=0;
+    while(getline(file,line))
+    {
+        N++;
+    }
+    file.close();
+    ifstream read("kursiokai.txt");
+    //student stud[N-1];
+    getline(read,line);
+    while(getline(read,line, ''))
+    {
+        split.push_back(line);
+        cout<<line<<endl;
+    }
+
 }
 

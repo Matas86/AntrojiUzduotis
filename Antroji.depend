@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1582278625 source:c:\users\matas\desktop\antrojiuzduotis\main.cpp
+1582281627 source:c:\users\matas\desktop\antrojiuzduotis\main.cpp
 	<iostream>
 	<limits>
 	<iomanip>
@@ -7,6 +7,7 @@
 	<vector>
 	<random>
 	<time.h>
+	<fstream>
 
 1581963194 source:c:\users\matisimo\desktop\antra\antrojiuzduotis\main.cpp
 	<iostream>
