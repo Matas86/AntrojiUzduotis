@@ -6,6 +6,7 @@
 #include <random>
 #include <time.h>
 #include <fstream>
+#include <sstream>
 using namespace std;
 
 const char duomenys [] = "kursiokai.txt";
@@ -24,6 +25,8 @@ struct student
 void Skaityk(student stud[], int &N);
 
 void Isvesk(student stud[], int N);
+
+void FinalCounter(student stud[], int N);
 
 int main()
 {
@@ -44,6 +47,7 @@ int main()
         int N = 10;
         student stud[N];
         Skaityk(stud, N);
+        Isvesk(stud,N);
     }
     else
     {
@@ -186,7 +190,7 @@ int main()
                 cout<<"Sugeneruotas egzamino balas: \n";
                 stud[i].exam = rand()%10 +1;
                 cout<<stud[i].exam<<endl;
-                stud[i].finalGrade = ((stud[i].homeworkSum*1.0/stud[i].homeworkCount) * 0.4) + (0.6*stud[i].exam);
+                stud[i].finalGrade = ((stud[i].homeworkSum*1.0/stud[i].homework.size()) * 0.4) + (0.6*stud[i].exam);
             }
 
 
@@ -196,56 +200,104 @@ int main()
 
 }
 
-
-
-
-
-
-
 void Isvesk(student stud[], int N)
 {
-    cout<<"Norite gauti vidurki ar mediana? (Vidurkis - v, Mediana - m \n";
-    string temp;
-
-    cin>>temp;
-    if(temp == "v")
+    FinalCounter(stud,N);
+    string ats;
+    cout<<"Norite isvesti atsakymus i komandine eilute ar i tekstini faila? (cmd - komandine eilute, file - tekstinis failas) \n";
+    cin>>ats;
+    if(ats=="cmd")
     {
-        cout<<setw(20)<<left<<"Pavarde"<<setw(10)<<left<<"Vardas"<<setw(20)<<"Galutinis (Vid.)"<<endl;
-        cout<<"-------------------------------------------------"<<endl;
+        cout<<"Norite gauti vidurki ar mediana? (Vidurkis - v, Mediana - m) \n";
+        string temp;
 
-
-        for(int i=0; i<N; i++)
+        cin>>temp;
+        if(temp == "v")
         {
-            cout<<setw(20)<<left<<stud[i].surname<<setw(10)<<left<<stud[i].name<<setw(10)<<left<<fixed<<setprecision(2)<<stud[i].finalGrade<<"\n";
+            cout<<setw(20)<<left<<"Pavarde"<<setw(10)<<left<<"Vardas"<<setw(20)<<"Galutinis (Vid.)"<<endl;
+            cout<<"-------------------------------------------------"<<endl;
+
+
+            for(int i=0; i<N; i++)
+
+                cout<<setw(20)<<left<<stud[i].surname<<setw(10)<<left<<stud[i].name<<setw(10)<<left<<fixed<<setprecision(2)<<stud[i].finalGrade<<"\n";
         }
-    }
-    else if( temp == "m")
-    {
-        cout<<setw(20)<<left<<"Pavarde"<<setw(10)<<left<<"Vardas"<<setw(20)<<"Galutinis (Med.)"<<endl;
-        cout<<"-------------------------------------------------"<<endl;
 
-        for(int i=0; i<N; i++)
+        else if( temp == "m")
         {
+            cout<<setw(20)<<left<<"Pavarde"<<setw(10)<<left<<"Vardas"<<setw(20)<<"Galutinis (Med.)"<<endl;
+            cout<<"-------------------------------------------------"<<endl;
 
-            sort(stud[i].homework.begin(), stud[i].homework.end());
-
-
-            if(stud[i].homeworkCount%2==1)
+            for(int i=0; i<N; i++)
             {
 
-                cout<<setw(20)<<left<<stud[i].surname<<setw(10)<<left<<stud[i].name<<setw(10)<<left<<fixed<<setprecision(2)<<stud[i].homework[(stud[i].homeworkCount)/2]*1.0<<"\n";
-            }
-            else
-            {
-                cout<<setw(20)<<left<<stud[i].surname<<setw(10)<<left<<stud[i].name<<setw(10)<<left<<fixed<<setprecision(2)<<(stud[i].homework[(stud[i].homeworkCount)/2 - 1] + stud[i].homework[((stud[i].homeworkCount)/2)])/2.0<<"\n";
-            }
+                sort(stud[i].homework.begin(), stud[i].homework.end());
 
+
+                if(stud[i].homework.size()%2==1)
+                {
+
+                    cout<<setw(20)<<left<<stud[i].surname<<setw(10)<<left<<stud[i].name<<setw(10)<<left<<fixed<<setprecision(2)<<stud[i].homework[(stud[i].homework.size())/2]*1.0<<"\n";
+                }
+                else
+                {
+                    cout<<setw(20)<<left<<stud[i].surname<<setw(10)<<left<<stud[i].name<<setw(10)<<left<<fixed<<setprecision(2)<<(stud[i].homework[(stud[i].homework.size())/2 - 1] + stud[i].homework[((stud[i].homework.size())/2)])/2.0<<"\n";
+                }
+
+            }
+        }
+        else
+        {
+            cout<<"Bloga įvestis. \n";
         }
     }
     else
     {
-        cout<<"Bloga įvestis. \n";
+        ofstream write("atsakymai.txt");
+        cout<<"Norite gauti vidurki ar mediana? (Vidurkis - v, Mediana - m) \n";
+        string temp;
+
+        cin>>temp;
+        if(temp == "v")
+        {
+            write<<setw(20)<<left<<"Pavarde"<<setw(10)<<left<<"Vardas"<<setw(20)<<"Galutinis (Vid.)"<<endl;
+            write<<"-------------------------------------------------"<<endl;
+
+
+            for(int i=0; i<N; i++)
+
+                write<<setw(20)<<left<<stud[i].surname<<setw(10)<<left<<stud[i].name<<setw(10)<<left<<fixed<<setprecision(2)<<stud[i].finalGrade<<"\n";
+        }
+
+        else if( temp == "m")
+        {
+            write<<setw(20)<<left<<"Pavarde"<<setw(10)<<left<<"Vardas"<<setw(20)<<"Galutinis (Med.)"<<endl;
+            write<<"-------------------------------------------------"<<endl;
+
+            for(int i=0; i<N; i++)
+            {
+
+                sort(stud[i].homework.begin(), stud[i].homework.end());
+
+
+                if(stud[i].homework.size()%2==1)
+                {
+
+                    write<<setw(20)<<left<<stud[i].surname<<setw(10)<<left<<stud[i].name<<setw(10)<<left<<fixed<<setprecision(2)<<stud[i].homework[(stud[i].homework.size())/2]*1.0<<"\n";
+                }
+                else
+                {
+                    write<<setw(20)<<left<<stud[i].surname<<setw(10)<<left<<stud[i].name<<setw(10)<<left<<fixed<<setprecision(2)<<(stud[i].homework[(stud[i].homework.size())/2 - 1] + stud[i].homework[((stud[i].homework.size())/2)])/2.0<<"\n";
+                }
+
+            }
+        }
+        else
+        {
+            cout<<"Bloga įvestis. \n";
+        }
     }
+
 }
 void Skaityk(student stud[], int &N)
 {
@@ -253,19 +305,35 @@ void Skaityk(student stud[], int &N)
     string line;
     vector<string> split;
     N=0;
-    while(getline(file,line))
-    {
-        N++;
-    }
     file.close();
     ifstream read("kursiokai.txt");
-    //student stud[N-1];
     getline(read,line);
-    while(getline(read,line, ''))
+    int pazymys;
+    while(getline(read,line))
     {
-        split.push_back(line);
-        cout<<line<<endl;
+        stringstream stream;
+        stream<<line;
+        stream>>stud[N].name>>stud[N].surname;
+        while(stream>>pazymys)
+        {
+            stud[N].homework.push_back(pazymys);
+        }
+        stud[N].exam = stud[N].homework.back();
+        stud[N].homework.pop_back();
+        N++;
+    }
+}
+void FinalCounter(student stud[], int N)
+{
+    for(int i=0; i<N; i++)
+    {
+        stud[i].homeworkSum = 0;
+
+        for(int j=0; j<stud[i].homework.size(); j++)
+        {
+            stud[i].homeworkSum+=stud[i].homework[j];
+        }
+        stud[i].finalGrade = stud[i].homeworkSum*1.0/stud[i].homework.size();
     }
 
 }
-
