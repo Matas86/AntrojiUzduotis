@@ -28,6 +28,8 @@ void Isvesk(student stud[], int N);
 
 void FinalCounter(student stud[], int N);
 
+bool sortStudents(student A, student B);
+
 int main()
 {
     srand(time(NULL));
@@ -335,5 +337,12 @@ void FinalCounter(student stud[], int N)
         }
         stud[i].finalGrade = stud[i].homeworkSum*1.0/stud[i].homework.size();
     }
+    sort(stud,stud+N, sortStudents);
+}
 
+bool sortStudents(student A, student B){
+    if(B.name > A.name || B.surname > A.surname){
+        return true;
+    }
+    return false;
 }
