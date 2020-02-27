@@ -33,3 +33,5 @@
 *.layout
 bin/
 obj/
+.vscode/
+*.txt

@@ -46,7 +46,7 @@ int main()
     if(failas == "y")
     {
 
-        int N = 10;
+        int N = 10000;
         student stud[N];
         Skaityk(stud, N);
         Isvesk(stud,N);
@@ -194,7 +194,7 @@ int main()
                 cout<<stud[i].exam<<endl;
                 stud[i].finalGrade = ((stud[i].homeworkSum*1.0/stud[i].homework.size()) * 0.4) + (0.6*stud[i].exam);
             }
-
+            Isvesk(stud,N);
 
         }
     }
@@ -216,19 +216,19 @@ void Isvesk(student stud[], int N)
         cin>>temp;
         if(temp == "v")
         {
-            cout<<setw(20)<<left<<"Pavarde"<<setw(10)<<left<<"Vardas"<<setw(20)<<"Galutinis (Vid.)"<<endl;
-            cout<<"-------------------------------------------------"<<endl;
+            cout<<setw(30)<<left<<"Pavarde"<<setw(30)<<left<<"Vardas"<<setw(5)<<"Galutinis (Vid.)"<<endl;
+            cout<<"------------------------------------------------------------------------"<<endl;
 
 
             for(int i=0; i<N; i++)
 
-                cout<<setw(20)<<left<<stud[i].surname<<setw(10)<<left<<stud[i].name<<setw(10)<<left<<fixed<<setprecision(2)<<stud[i].finalGrade<<"\n";
+                cout<<setw(30)<<left<<stud[i].surname<<setw(30)<<left<<stud[i].name<<setw(5)<<left<<fixed<<setprecision(2)<<stud[i].finalGrade<<"\n";
         }
 
         else if( temp == "m")
         {
-            cout<<setw(20)<<left<<"Pavarde"<<setw(10)<<left<<"Vardas"<<setw(20)<<"Galutinis (Med.)"<<endl;
-            cout<<"-------------------------------------------------"<<endl;
+            cout<<setw(30)<<left<<"Pavarde"<<setw(30)<<left<<"Vardas"<<setw(5)<<"Galutinis (Med.)"<<endl;
+            cout<<"------------------------------------------------------------------------"<<endl;
 
             for(int i=0; i<N; i++)
             {
@@ -239,11 +239,11 @@ void Isvesk(student stud[], int N)
                 if(stud[i].homework.size()%2==1)
                 {
 
-                    cout<<setw(20)<<left<<stud[i].surname<<setw(10)<<left<<stud[i].name<<setw(10)<<left<<fixed<<setprecision(2)<<stud[i].homework[(stud[i].homework.size())/2]*1.0<<"\n";
+                    cout<<setw(30)<<left<<stud[i].surname<<setw(30)<<left<<stud[i].name<<setw(5)<<left<<fixed<<setprecision(2)<<stud[i].homework[(stud[i].homework.size())/2]*1.0<<"\n";
                 }
                 else
                 {
-                    cout<<setw(20)<<left<<stud[i].surname<<setw(10)<<left<<stud[i].name<<setw(10)<<left<<fixed<<setprecision(2)<<(stud[i].homework[(stud[i].homework.size())/2 - 1] + stud[i].homework[((stud[i].homework.size())/2)])/2.0<<"\n";
+                    cout<<setw(30)<<left<<stud[i].surname<<setw(30)<<left<<stud[i].name<<setw(5)<<left<<fixed<<setprecision(2)<<(stud[i].homework[(stud[i].homework.size())/2 - 1] + stud[i].homework[((stud[i].homework.size())/2)])/2.0<<"\n";
                 }
 
             }
@@ -262,19 +262,19 @@ void Isvesk(student stud[], int N)
         cin>>temp;
         if(temp == "v")
         {
-            write<<setw(20)<<left<<"Pavarde"<<setw(10)<<left<<"Vardas"<<setw(20)<<"Galutinis (Vid.)"<<endl;
-            write<<"-------------------------------------------------"<<endl;
+            write<<setw(30)<<left<<"Pavarde"<<setw(30)<<left<<"Vardas"<<setw(5)<<"Galutinis (Vid.)"<<endl;
+            write<<"------------------------------------------------------------------------"<<endl;
 
 
             for(int i=0; i<N; i++)
 
-                write<<setw(20)<<left<<stud[i].surname<<setw(10)<<left<<stud[i].name<<setw(10)<<left<<fixed<<setprecision(2)<<stud[i].finalGrade<<"\n";
+                write<<setw(30)<<left<<stud[i].surname<<setw(30)<<left<<stud[i].name<<setw(5)<<left<<fixed<<setprecision(2)<<stud[i].finalGrade<<"\n";
         }
 
         else if( temp == "m")
         {
-            write<<setw(20)<<left<<"Pavarde"<<setw(10)<<left<<"Vardas"<<setw(20)<<"Galutinis (Med.)"<<endl;
-            write<<"-------------------------------------------------"<<endl;
+            write<<setw(30)<<left<<"Pavarde"<<setw(30)<<left<<"Vardas"<<setw(5)<<"Galutinis (Med.)"<<endl;
+            write<<"-------------------------------------------------------------------------"<<endl;
 
             for(int i=0; i<N; i++)
             {
@@ -285,11 +285,11 @@ void Isvesk(student stud[], int N)
                 if(stud[i].homework.size()%2==1)
                 {
 
-                    write<<setw(20)<<left<<stud[i].surname<<setw(10)<<left<<stud[i].name<<setw(10)<<left<<fixed<<setprecision(2)<<stud[i].homework[(stud[i].homework.size())/2]*1.0<<"\n";
+                    write<<setw(30)<<left<<stud[i].surname<<setw(30)<<left<<stud[i].name<<setw(5)<<left<<fixed<<setprecision(2)<<stud[i].homework[(stud[i].homework.size())/2]*1.0<<"\n";
                 }
                 else
                 {
-                    write<<setw(20)<<left<<stud[i].surname<<setw(10)<<left<<stud[i].name<<setw(10)<<left<<fixed<<setprecision(2)<<(stud[i].homework[(stud[i].homework.size())/2 - 1] + stud[i].homework[((stud[i].homework.size())/2)])/2.0<<"\n";
+                    write<<setw(30)<<left<<stud[i].surname<<setw(30)<<left<<stud[i].name<<setw(5)<<left<<fixed<<setprecision(2)<<(stud[i].homework[(stud[i].homework.size())/2 - 1] + stud[i].homework[((stud[i].homework.size())/2)])/2.0<<"\n";
                 }
 
             }
@@ -313,6 +313,7 @@ void Skaityk(student stud[], int &N)
     int pazymys;
     while(getline(read,line))
     {
+
         stringstream stream;
         stream<<line;
         stream>>stud[N].name>>stud[N].surname;
@@ -320,9 +321,11 @@ void Skaityk(student stud[], int &N)
         {
             stud[N].homework.push_back(pazymys);
         }
+
         stud[N].exam = stud[N].homework.back();
         stud[N].homework.pop_back();
         N++;
+
     }
 }
 void FinalCounter(student stud[], int N)
@@ -340,8 +343,10 @@ void FinalCounter(student stud[], int N)
     sort(stud,stud+N, sortStudents);
 }
 
-bool sortStudents(student A, student B){
-    if(B.name > A.name || B.surname > A.surname){
+bool sortStudents(student A, student B)
+{
+    if(B.name > A.name || B.surname > A.surname)
+    {
         return true;
     }
     return false;
