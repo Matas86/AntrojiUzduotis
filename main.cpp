@@ -14,18 +14,17 @@ struct student
 {
     std::string name;
     std::string surname;
-    int homeworkCount;
     int homeworkSum;
     std::vector<int> homework;
     int exam;
     double finalGrade;
     bool random;
 };
-void Skaityk(student stud[], int &N);
+void Skaityk(std::vector<student> &stud);
 
-void Isvesk(student stud[], int N);
+void Isvesk(std::vector<student> stud);
 
-void FinalCounter(student stud[], int N);
+void FinalCounter(std::vector<student> stud);
 
 bool sortStudents(student A, student B);
 
@@ -53,10 +52,10 @@ void StartProgram()
     if(failas == "y")
     {
 
-        int N = 10000;
-        student stud[N];
-        Skaityk(stud, N);
-        Isvesk(stud,N);
+        std::vector <student> stud;
+        stud.reserve(100000);
+        Skaityk(stud);
+        Isvesk(stud);
     }
     else
     {
@@ -71,7 +70,8 @@ void StartProgram()
             std::cout<<"\n";
         }
 
-        student stud[N];
+        std::vector<student> stud;
+        stud.reserve(100000);
         std::string randomas;
         for(int i=0; i<N; i++)
         {
@@ -126,7 +126,6 @@ void StartProgram()
                         std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
                         std::cout<<"\n";
                     }
-                    stud[i].homeworkSum += skaicius;
                     skc++;
                     stud[i].homework.push_back(skaicius);
                     std::cout<<"Ar norite toliau vesti namu darbu balus? (taip - y, ne - n) \n";
@@ -134,7 +133,7 @@ void StartProgram()
                     if(ats == "n")
                     {
                         veda=false;
-                        stud[i].homeworkCount = skc;
+                        
                     }
                 }
 
@@ -148,7 +147,7 @@ void StartProgram()
                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
                     std::cout<<"\n";
                 }
-                stud[i].finalGrade = ((stud[i].homeworkSum*1.0/stud[i].homeworkCount) * 0.4) + (0.6*stud[i].exam);
+                stud[i].finalGrade = ((stud[i].homeworkSum*1.0/stud[i].homework.size()) * 0.4) + (0.6*stud[i].exam);
             }
             else
             {
@@ -190,7 +189,7 @@ void StartProgram()
                     if(ats == "n")
                     {
                         veda=false;
-                        stud[i].homeworkCount = skc;
+                        
                     }
                 }
 
@@ -201,16 +200,17 @@ void StartProgram()
                 std::cout<<stud[i].exam<<std::endl;
                 stud[i].finalGrade = ((stud[i].homeworkSum*1.0/stud[i].homework.size()) * 0.4) + (0.6*stud[i].exam);
             }
-            Isvesk(stud,N);
+            
 
         }
+        Isvesk(stud);
     }
 }
 
-void Isvesk(student stud[], int N)
+void Isvesk(std::vector<student> stud)
 {
     using namespace std;
-    FinalCounter(stud,N);
+    FinalCounter(stud);
     string ats;
     cout<<"Norite isvesti atsakymus i komandine eilute ar i tekstini faila? (cmd - komandine eilute, file - tekstinis failas) \n";
     cin>>ats;
@@ -226,7 +226,7 @@ void Isvesk(student stud[], int N)
             cout<<"------------------------------------------------------------------------"<<endl;
 
 
-            for(int i=0; i<N; i++)
+            for(int i=0; i<stud.size(); i++)
 
                 cout<<setw(30)<<left<<stud[i].surname<<setw(30)<<left<<stud[i].name<<setw(5)<<left<<fixed<<setprecision(2)<<stud[i].finalGrade<<"\n";
         }
@@ -236,7 +236,7 @@ void Isvesk(student stud[], int N)
             cout<<setw(30)<<left<<"Pavarde"<<setw(30)<<left<<"Vardas"<<setw(5)<<"Galutinis (Med.)"<<endl;
             cout<<"------------------------------------------------------------------------"<<endl;
 
-            for(int i=0; i<N; i++)
+            for(int i=0; i<stud.size(); i++)
             {
 
                 sort(stud[i].homework.begin(), stud[i].homework.end());
@@ -272,7 +272,7 @@ void Isvesk(student stud[], int N)
             write<<"------------------------------------------------------------------------"<<endl;
 
 
-            for(int i=0; i<N; i++)
+            for(int i=0; i<stud.size(); i++)
 
                 write<<setw(30)<<left<<stud[i].surname<<setw(30)<<left<<stud[i].name<<setw(5)<<left<<fixed<<setprecision(2)<<stud[i].finalGrade<<"\n";
         }
@@ -282,7 +282,7 @@ void Isvesk(student stud[], int N)
             write<<setw(30)<<left<<"Pavarde"<<setw(30)<<left<<"Vardas"<<setw(5)<<"Galutinis (Med.)"<<endl;
             write<<"-------------------------------------------------------------------------"<<endl;
 
-            for(int i=0; i<N; i++)
+            for(int i=0; i<stud.size(); i++)
             {
 
                 sort(stud[i].homework.begin(), stud[i].homework.end());
@@ -307,12 +307,13 @@ void Isvesk(student stud[], int N)
     }
 
 }
-void Skaityk(student stud[], int &N)
+
+void Skaityk(std::vector<student> &stud)
 {
     std::ifstream file("kursiokai.txt");
     std::string line;
     std::vector<std::string> split;
-    N=0;
+    int N=0;
     file.close();
     std::ifstream read("kursiokai.txt");
     std::getline(read,line);
@@ -344,9 +345,9 @@ void Skaityk(student stud[], int &N)
 
     }
 }
-void FinalCounter(student stud[], int N)
+void FinalCounter(std::vector<student> stud)
 {
-    for(int i=0; i<N; i++)
+    for(int i=0; i<stud.size(); i++)
     {
         stud[i].homeworkSum = 0;
 
@@ -356,7 +357,7 @@ void FinalCounter(student stud[], int N)
         }
         stud[i].finalGrade = stud[i].homeworkSum*1.0/stud[i].homework.size();
     }
-    std::sort(stud,stud+N, sortStudents);
+    std::sort(stud.begin(),stud.end(), sortStudents);
 }
 
 bool sortStudents(student A, student B)
