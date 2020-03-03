@@ -8,7 +8,6 @@
 #include <fstream>
 #include <sstream>
 
-const char duomenys [] = "kursiokai.txt";
 
 struct student
 {
