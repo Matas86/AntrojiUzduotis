@@ -7,15 +7,15 @@ Programą sudaro du .cpp failai, viename atlikta programa su C kalbos masyvais, 
 - Pagal aprašytus programos nurodymus pasirinkite norimus kiekvieno studento parametrus
 
 # Programos išleidimai
-## 1. [v0.1.1 programos versija](https://github.com/Matas86/AntrojiPrograma/releases/tag/v0.1.1)
+## 1. [v0.1.1 programos versija](https://github.com/Matas86/AntrojiUzduotis/releases/tag/v0.1.1)
 - Ši programa leidžia naudojantis tiek masyvais, tiek vektoriais apskaičiuoti ir gauti studentų pažymių vidurkius arba medianą.
 - Programa leidžia arba atsitiktinai generuoti, arba įvesti kiekvieno studento pažymius ranka.
 - Programa leidžia pasirinkti ar norite gauti medianą, ar pažymių vidurkį pagal formulę.
-## 2. [v0.2.1 programos versija](https://github.com/Matas86/AntrojiPrograma/releases/tag/v0.2.1)
+## 2. [v0.2.1 programos versija](https://github.com/Matas86/AntrojiUzduotis/releases/tag/v0.2.1)
 - Ši programos versija leidžia naudotojui pateikti kursiokai.txt duomenų failą ir pateikti duomenis būtent tame faile
 - Pateikti duomenis ranka
 - Gauti rezultatus komandinėje eilutėje arba rezultatų faile atsakymai.txt
-## 3. [v0.3.1 programos versija](https://github.com/Matas86/AntrojiPrograma/releases/tag/v0.3.1)
+## 3. [v0.3.1 programos versija](https://github.com/Matas86/AntrojiUzduotis/releases/tag/v0.3.1)
 - Ši programos versija leidžia naudotojui pateikti savo duomenų failą ir įvesti jo pavadinimą
 - Programa yra atskirta į .cpp ir .h failus
 - Sukurtas makefile ir pilnai funkcionuojantis sukonfiguruotas make failas kiekvieną kartą atnaujinamas, jeigu .cpp ar .h failai yra atnaujinami paleidus komandą make.
