@@ -19,12 +19,16 @@ struct student
     int exam;
     double finalGrade;
     bool random;
+    student()
+    {
+        homeworkSum = 0;
+    }
 };
 void Skaityk(std::vector<student> &stud);
 
 void Isvesk(std::vector<student> stud);
 
-void FinalCounter(std::vector<student> stud);
+void FinalCounter(std::vector<student> &stud);
 
 bool sortStudents(student A, student B);
 
@@ -310,21 +314,33 @@ void Isvesk(std::vector<student> stud)
 
 void Skaityk(std::vector<student> &stud)
 {
-    std::ifstream file("kursiokai.txt");
+    std::ifstream file;
+    std::string filename;
+    while(true){
+        std::cout << "Iveskite failo pavadinima: "; std::cin >> filename;
+        try{
+             file.open(filename, std::ifstream::in);
+            if(!file.good()) throw "Nepavyko atidaryti failo, isitikinkite, kad jis egzistuoja";
+            break;
+        }catch(const char * e){
+            std::cout << e << "\n";
+        }
+    }    
     std::string line;
     std::vector<std::string> split;
     int N=0;
     file.close();
-    std::ifstream read("kursiokai.txt");
+    std::ifstream read(filename);
     std::getline(read,line);
     std::string pazymysSt;
     int pazInt;
+    
     while(getline(read,line))
     {
-
+        student *currentStud = new student();
         std::stringstream stream;
         stream<<line;
-        stream>>stud[N].name>>stud[N].surname;
+        stream>>currentStud->name>>currentStud->surname;
         while(stream>>pazymysSt)
         {
             try
@@ -336,26 +352,29 @@ void Skaityk(std::vector<student> &stud)
                 std::cout<<"Ivyko klaida nuskaitant pazymi \n";
             }
             
-            stud[N].homework.push_back(pazInt);
+            currentStud->homework.push_back(pazInt);
         }
 
-        stud[N].exam = stud[N].homework.back();
-        stud[N].homework.pop_back();
+        currentStud->exam = currentStud->homework.back();
+        currentStud->homework.pop_back();
         N++;
+        stud.push_back(*currentStud);
+        delete currentStud;
 
     }
 }
-void FinalCounter(std::vector<student> stud)
+
+
+void FinalCounter(std::vector<student> &stud)
 {
     for(int i=0; i<stud.size(); i++)
     {
-        stud[i].homeworkSum = 0;
-
         for(int j=0; j<stud[i].homework.size(); j++)
         {
-            stud[i].homeworkSum+=stud[i].homework[j];
+           stud.at(i).homeworkSum+=stud.at(i).homework.at(j);
         }
-        stud[i].finalGrade = stud[i].homeworkSum*1.0/stud[i].homework.size();
+        stud.at(i).finalGrade = stud.at(i).homeworkSum*1.0/stud.at(i).homework.size();
+        //std::cout<<stud.at(i).finalGrade<<std::endl;
     }
     std::sort(stud.begin(),stud.end(), sortStudents);
 }
