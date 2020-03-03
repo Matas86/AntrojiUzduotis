@@ -7,74 +7,84 @@
 #include <time.h>
 #include <fstream>
 #include <sstream>
-using namespace std;
 
-const char duomenys [] = "kursiokai.txt";
 
 struct student
 {
-    string name;
-    string surname;
-    int homeworkCount;
+    std::string name;
+    std::string surname;
     int homeworkSum;
-    vector<int> homework;
+    std::vector<int> homework;
     int exam;
     double finalGrade;
     bool random;
+    student()
+    {
+        homeworkSum = 0;
+    }
 };
-void Skaityk(student stud[], int &N);
+void Skaityk(std::vector<student> &stud);
 
-void Isvesk(student stud[], int N);
+void Isvesk(std::vector<student> stud);
 
-void FinalCounter(student stud[], int N);
+void FinalCounter(std::vector<student> &stud);
 
 bool sortStudents(student A, student B);
 
+void StartProgram();
+
 int main()
+{
+    
+    StartProgram();
+
+}
+void StartProgram()
 {
     srand(time(NULL));
 
-    string failas;
-    cout<<"Ar duomenys bus nuskaitomi is duomenu failo? (taip - y, ne - n) \n";
-    while(!(cin >> failas))
+    std::string failas;
+    std::cout<<"Ar duomenys bus nuskaitomi is duomenu failo? (taip - y, ne - n) \n";
+    while(!(std::cin >> failas))
     {
-        cout << "Bloga ivestis! Iveskite savo varda";
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(),'\n');
-        cout<<"\n";
+        std::cout << "Bloga ivestis! Iveskite savo varda";
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+        std::cout<<"\n";
     }
     if(failas == "y")
     {
 
-        int N = 10;
-        student stud[N];
-        Skaityk(stud, N);
-        Isvesk(stud,N);
+        std::vector <student> stud;
+        stud.reserve(100000);
+        Skaityk(stud);
+        Isvesk(stud);
     }
     else
     {
         int N;
 
-        cout<<"Iveskite studentu skaiciu: \n";
-        while(!(cin >> N) || N<0)
+        std::cout<<"Iveskite studentu skaiciu: \n";
+        while(!(std::cin >> N) || N<0)
         {
-            cout << "Bloga ivestis! Iveskite studentu skaiciu skaitmeniu";
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(),'\n');
-            cout<<"\n";
+            std::cout << "Bloga ivestis! Iveskite studentu skaiciu skaitmeniu";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+            std::cout<<"\n";
         }
 
-        student stud[N];
-        string randomas;
+        std::vector<student> stud;
+        stud.reserve(100000);
+        std::string randomas;
         for(int i=0; i<N; i++)
         {
-            cout<<"Ar norite, kad studento pazymiai butu generuojami atsitiktinai? (taip - y, ne - n)"<<endl;
-            while(!(cin >> randomas))
+            std::cout<<"Ar norite, kad studento pazymiai butu generuojami atsitiktinai? (taip - y, ne - n)"<<std::endl;
+            while(!(std::cin >> randomas))
             {
-                cout << "Bloga ivestis! Iveskite savo varda";
-                cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(),'\n');
-                cout<<"\n";
+                std::cout << "Bloga ivestis! Iveskite savo varda";
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+                std::cout<<"\n";
             }
             if(randomas == "y")
                 stud[i].random = true;
@@ -82,129 +92,127 @@ int main()
                 stud[i].random = false;
 
             if(!stud[i].random)
+        {
+            student currentStud;
+            std::cout<<"Iveskite savo varda: \n";
+            while(!(std::cin >> currentStud.name))
             {
-                cout<<"Iveskite savo varda: \n";
-                while(!(cin >> stud[i].name))
-                {
-                    cout << "Bloga ivestis! Iveskite savo varda";
-                    cin.clear();
-                    cin.ignore(numeric_limits<streamsize>::max(),'\n');
-                    cout<<"\n";
-                }
-
-                cout<<"Iveskite savo pavarde: \n";
-                while(!(cin >> stud[i].surname))
-                {
-                    cout << "Bloga ivestis! Iveskite savo pavarde";
-                    cin.clear();
-                    cin.ignore(numeric_limits<streamsize>::max(),'\n');
-                    cout<<"\n";
-                }
-
-                int skc;
-                bool veda;
-                string ats;
-                skc = 0;
-                veda = true;
-                int skaicius;
-                stud[i].homeworkSum = 0;
-                while(veda)
-                {
-                    cout<<"Iveskite savo " << skc+1 << " namu darbu bala: \n";
-
-                    while(!(cin >> skaicius) || skaicius>10 || skaicius<0)
-                    {
-                        cout << "Bloga ivestis! Iveskite savo namu darbu bala skaiciumi (0-10)";
-                        cin.clear();
-                        cin.ignore(numeric_limits<streamsize>::max(),'\n');
-                        cout<<"\n";
-                    }
-                    stud[i].homeworkSum += skaicius;
-                    skc++;
-                    stud[i].homework.push_back(skaicius);
-                    cout<<"Ar norite toliau vesti namu darbu balus? (taip - y, ne - n) \n";
-                    cin>>ats;
-                    if(ats == "n")
-                    {
-                        veda=false;
-                        stud[i].homeworkCount = skc;
-                    }
-                }
-
-
-
-                cout<<"Iveskite savo egzamino bala: \n";
-                while(!(cin >> stud[i].exam) || stud[i].exam >10 || stud[i].exam<0)
-                {
-                    cout << "Bloga ivestis! Iveskite savo namu darbu bala skaiciumi";
-                    cin.clear();
-                    cin.ignore(numeric_limits<streamsize>::max(),'\n');
-                    cout<<"\n";
-                }
-                stud[i].finalGrade = ((stud[i].homeworkSum*1.0/stud[i].homeworkCount) * 0.4) + (0.6*stud[i].exam);
-            }
-            else
-            {
-                cout<<"Iveskite savo varda: \n";
-                while(!(cin >> stud[i].name))
-                {
-                    cout << "Bloga ivestis! Iveskite savo varda";
-                    cin.clear();
-                    cin.ignore(numeric_limits<streamsize>::max(),'\n');
-                    cout<<"\n";
-                }
-
-                cout<<"Iveskite savo pavarde: \n";
-                while(!(cin >> stud[i].surname))
-                {
-                    cout << "Bloga ivestis! Iveskite savo pavarde";
-                    cin.clear();
-                    cin.ignore(numeric_limits<streamsize>::max(),'\n');
-                    cout<<"\n";
-                }
-
-                int skc;
-                bool veda;
-                string ats;
-                skc = 0;
-                veda = true;
-                int skaicius;
-                stud[i].homeworkSum = 0;
-                while(veda)
-                {
-                    cout<<"Sugeneruotas " << skc+1 << " namu darbu balas: \n";
-                    skaicius = rand() %10 +1;
-                    cout<<skaicius<<endl;
-                    stud[i].homeworkSum += skaicius;
-                    skc++;
-                    stud[i].homework.push_back(skaicius);
-                    cout<<"Ar norite toliau generuoti namu darbu balus? (taip - y, ne - n) \n";
-                    cin>>ats;
-                    if(ats == "n")
-                    {
-                        veda=false;
-                        stud[i].homeworkCount = skc;
-                    }
-                }
-
-
-
-                cout<<"Sugeneruotas egzamino balas: \n";
-                stud[i].exam = rand()%10 +1;
-                cout<<stud[i].exam<<endl;
-                stud[i].finalGrade = ((stud[i].homeworkSum*1.0/stud[i].homework.size()) * 0.4) + (0.6*stud[i].exam);
+                std::cout << "Bloga ivestis! Iveskite savo varda";
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+                std::cout<<"\n";
             }
 
+            std::cout<<"Iveskite savo pavarde: \n";
+            while(!(std::cin >> currentStud.surname))
+            {
+                std::cout << "Bloga ivestis! Iveskite savo pavarde";
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+                std::cout<<"\n";
+            }
+
+            int skc;
+            bool veda;
+            std::string ats;
+            skc = 0;
+            veda = true;
+            int skaicius;
+            while(veda)
+            {
+                std::cout<<"Iveskite savo " << skc+1 << " namu darbu bala: \n";
+
+                while(!(std::cin >> skaicius || skaicius>10 || skaicius<0))
+                {
+                    std::cout << "Bloga ivestis! Iveskite savo namu darbu bala skaiciumi (0-10)";
+                    std::cin.clear();
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+                    std::cout<<"\n";
+                }
+                currentStud.homeworkSum += skaicius;
+                skc++;
+                currentStud.homework.push_back(skaicius);
+                std::cout<<"Ar norite toliau vesti namu darbu balus? (taip - y, ne - n) \n";
+                std::cin>>ats;
+                if(ats == "n")
+                {
+                    veda=false;
+                }
+                
+            }
+
+
+
+            std::cout<<"Iveskite savo egzamino bala: \n";
+            while(!(std::cin >> currentStud.exam) || currentStud.exam >10 || currentStud.exam<0)
+            {
+                std::cout << "Bloga ivestis! Iveskite savo egzamino bala skaiciumi (0-10)";
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+                std::cout<<"\n";
+            }
+            stud.push_back(currentStud);
+        }
+        else
+        {
+            student currentStud;
+            std::cout<<"Iveskite savo varda: \n";
+        while(!(std::cin >> currentStud.name))
+        {
+            std::cout << "Bloga ivestis! Iveskite savo varda";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+            std::cout<<"\n";
+        }
+
+        std::cout<<"Iveskite savo pavarde: \n";
+        while(!(std::cin >> currentStud.surname))
+        {
+            std::cout << "Bloga ivestis! Iveskite savo pavarde";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+            std::cout<<"\n";
+        }
+
+        int skc;
+        bool veda;
+        std::string ats;
+        skc = 0;
+        veda = true;
+        int skaicius;
+        while(veda)
+        {
+            std::cout<<"Sugeneruotas " << skc+1 << " namu darbu balas: \n";
+            skaicius = rand() %10 +1;
+            std::cout<<skaicius<<std::endl;
+            skc++;
+            currentStud.homework.push_back(skaicius);
+            std::cout<<"Ar norite toliau generuoti namu darbu balus? (taip - y, ne - n) \n";
+            std::cin>>ats;
+            if(ats == "n")
+            {
+                veda=false;
+            }
+        }
+
+
+
+        std::cout<<"Sugeneruotas egzamino balas: \n";
+        currentStud.exam = rand()%10 +1;
+        std::cout<<currentStud.exam<<std::endl;
+        stud.push_back(currentStud);
+        }
+            
 
         }
+        Isvesk(stud);
     }
-
-
 }
 
-void Isvesk(student stud[], int N)
+void Isvesk(std::vector<student> stud)
 {
-    FinalCounter(stud,N);
+    using namespace std;
+    FinalCounter(stud);
     string ats;
     cout<<"Norite isvesti atsakymus i komandine eilute ar i tekstini faila? (cmd - komandine eilute, file - tekstinis failas) \n";
     cin>>ats;
@@ -212,25 +220,25 @@ void Isvesk(student stud[], int N)
     {
         cout<<"Norite gauti vidurki ar mediana? (Vidurkis - v, Mediana - m) \n";
         string temp;
-
         cin>>temp;
+        
         if(temp == "v")
         {
-            cout<<setw(20)<<left<<"Pavarde"<<setw(10)<<left<<"Vardas"<<setw(20)<<"Galutinis (Vid.)"<<endl;
-            cout<<"-------------------------------------------------"<<endl;
+            cout<<setw(30)<<left<<"Pavarde"<<setw(30)<<left<<"Vardas"<<setw(5)<<"Galutinis (Vid.)"<<endl;
+            cout<<"------------------------------------------------------------------------"<<endl;
 
 
-            for(int i=0; i<N; i++)
+            for(int i=0; i<stud.size(); i++)
 
-                cout<<setw(20)<<left<<stud[i].surname<<setw(10)<<left<<stud[i].name<<setw(10)<<left<<fixed<<setprecision(2)<<stud[i].finalGrade<<"\n";
+                cout<<setw(30)<<left<<stud[i].surname<<setw(30)<<left<<stud[i].name<<setw(5)<<left<<fixed<<setprecision(2)<<stud[i].finalGrade<<"\n";
         }
 
         else if( temp == "m")
         {
-            cout<<setw(20)<<left<<"Pavarde"<<setw(10)<<left<<"Vardas"<<setw(20)<<"Galutinis (Med.)"<<endl;
-            cout<<"-------------------------------------------------"<<endl;
+            cout<<setw(30)<<left<<"Pavarde"<<setw(30)<<left<<"Vardas"<<setw(5)<<"Galutinis (Med.)"<<endl;
+            cout<<"------------------------------------------------------------------------"<<endl;
 
-            for(int i=0; i<N; i++)
+            for(int i=0; i<stud.size(); i++)
             {
 
                 sort(stud[i].homework.begin(), stud[i].homework.end());
@@ -239,11 +247,11 @@ void Isvesk(student stud[], int N)
                 if(stud[i].homework.size()%2==1)
                 {
 
-                    cout<<setw(20)<<left<<stud[i].surname<<setw(10)<<left<<stud[i].name<<setw(10)<<left<<fixed<<setprecision(2)<<stud[i].homework[(stud[i].homework.size())/2]*1.0<<"\n";
+                    cout<<setw(30)<<left<<stud[i].surname<<setw(30)<<left<<stud[i].name<<setw(5)<<left<<fixed<<setprecision(2)<<stud[i].homework[(stud[i].homework.size())/2]*1.0<<"\n";
                 }
                 else
                 {
-                    cout<<setw(20)<<left<<stud[i].surname<<setw(10)<<left<<stud[i].name<<setw(10)<<left<<fixed<<setprecision(2)<<(stud[i].homework[(stud[i].homework.size())/2 - 1] + stud[i].homework[((stud[i].homework.size())/2)])/2.0<<"\n";
+                    cout<<setw(30)<<left<<stud[i].surname<<setw(30)<<left<<stud[i].name<<setw(5)<<left<<fixed<<setprecision(2)<<(stud[i].homework[(stud[i].homework.size())/2 - 1] + stud[i].homework[((stud[i].homework.size())/2)])/2.0<<"\n";
                 }
 
             }
@@ -262,21 +270,21 @@ void Isvesk(student stud[], int N)
         cin>>temp;
         if(temp == "v")
         {
-            write<<setw(20)<<left<<"Pavarde"<<setw(10)<<left<<"Vardas"<<setw(20)<<"Galutinis (Vid.)"<<endl;
-            write<<"-------------------------------------------------"<<endl;
+            write<<setw(30)<<left<<"Pavarde"<<setw(30)<<left<<"Vardas"<<setw(5)<<"Galutinis (Vid.)"<<endl;
+            write<<"------------------------------------------------------------------------"<<endl;
 
 
-            for(int i=0; i<N; i++)
+            for(int i=0; i<stud.size(); i++)
 
-                write<<setw(20)<<left<<stud[i].surname<<setw(10)<<left<<stud[i].name<<setw(10)<<left<<fixed<<setprecision(2)<<stud[i].finalGrade<<"\n";
+                write<<setw(30)<<left<<stud[i].surname<<setw(30)<<left<<stud[i].name<<setw(5)<<left<<fixed<<setprecision(2)<<stud[i].finalGrade<<"\n";
         }
 
         else if( temp == "m")
         {
-            write<<setw(20)<<left<<"Pavarde"<<setw(10)<<left<<"Vardas"<<setw(20)<<"Galutinis (Med.)"<<endl;
-            write<<"-------------------------------------------------"<<endl;
+            write<<setw(30)<<left<<"Pavarde"<<setw(30)<<left<<"Vardas"<<setw(5)<<"Galutinis (Med.)"<<endl;
+            write<<"-------------------------------------------------------------------------"<<endl;
 
-            for(int i=0; i<N; i++)
+            for(int i=0; i<stud.size(); i++)
             {
 
                 sort(stud[i].homework.begin(), stud[i].homework.end());
@@ -285,11 +293,11 @@ void Isvesk(student stud[], int N)
                 if(stud[i].homework.size()%2==1)
                 {
 
-                    write<<setw(20)<<left<<stud[i].surname<<setw(10)<<left<<stud[i].name<<setw(10)<<left<<fixed<<setprecision(2)<<stud[i].homework[(stud[i].homework.size())/2]*1.0<<"\n";
+                    write<<setw(30)<<left<<stud[i].surname<<setw(30)<<left<<stud[i].name<<setw(5)<<left<<fixed<<setprecision(2)<<stud[i].homework[(stud[i].homework.size())/2]*1.0<<"\n";
                 }
                 else
                 {
-                    write<<setw(20)<<left<<stud[i].surname<<setw(10)<<left<<stud[i].name<<setw(10)<<left<<fixed<<setprecision(2)<<(stud[i].homework[(stud[i].homework.size())/2 - 1] + stud[i].homework[((stud[i].homework.size())/2)])/2.0<<"\n";
+                    write<<setw(30)<<left<<stud[i].surname<<setw(30)<<left<<stud[i].name<<setw(5)<<left<<fixed<<setprecision(2)<<(stud[i].homework[(stud[i].homework.size())/2 - 1] + stud[i].homework[((stud[i].homework.size())/2)])/2.0<<"\n";
                 }
 
             }
@@ -301,47 +309,78 @@ void Isvesk(student stud[], int N)
     }
 
 }
-void Skaityk(student stud[], int &N)
+
+void Skaityk(std::vector<student> &stud)
 {
-    ifstream file("kursiokai.txt");
-    string line;
-    vector<string> split;
-    N=0;
+    std::ifstream file;
+    std::string filename;
+    while(true){
+        std::cout << "Iveskite failo pavadinima: "; std::cin >> filename;
+        try{
+             file.open(filename, std::ifstream::in);
+            if(!file.good()) throw "Nepavyko atidaryti failo, isitikinkite, kad jis egzistuoja";
+            break;
+        }catch(const char * e){
+            std::cout << e << "\n";
+        }
+    }    
+    std::string line;
+    std::vector<std::string> split;
+    int N=0;
     file.close();
-    ifstream read("kursiokai.txt");
-    getline(read,line);
-    int pazymys;
+    std::ifstream read(filename);
+    std::getline(read,line);
+    std::string pazymysSt;
+    int pazInt;
+    
     while(getline(read,line))
     {
-        stringstream stream;
+        student *currentStud = new student();
+        std::stringstream stream;
         stream<<line;
-        stream>>stud[N].name>>stud[N].surname;
-        while(stream>>pazymys)
+        stream>>currentStud->name>>currentStud->surname;
+        while(stream>>pazymysSt)
         {
-            stud[N].homework.push_back(pazymys);
+            try
+            {
+                pazInt = stoi(pazymysSt);
+            }
+            catch(const std::exception& e)
+            {
+                std::cout<<"Ivyko klaida nuskaitant pazymi \n";
+            }
+            
+            currentStud->homework.push_back(pazInt);
         }
-        stud[N].exam = stud[N].homework.back();
-        stud[N].homework.pop_back();
+
+        currentStud->exam = currentStud->homework.back();
+        currentStud->homework.pop_back();
         N++;
+        stud.push_back(*currentStud);
+        delete currentStud;
+
     }
 }
-void FinalCounter(student stud[], int N)
-{
-    for(int i=0; i<N; i++)
-    {
-        stud[i].homeworkSum = 0;
 
+
+void FinalCounter(std::vector<student> &stud)
+{
+    for(int i=0; i<stud.size(); i++)
+    {
         for(int j=0; j<stud[i].homework.size(); j++)
         {
-            stud[i].homeworkSum+=stud[i].homework[j];
+           stud.at(i).homeworkSum+=stud.at(i).homework.at(j);
         }
-        stud[i].finalGrade = stud[i].homeworkSum*1.0/stud[i].homework.size();
+        stud.at(i).finalGrade = (stud.at(i).homeworkSum*1.0/stud.at(i).homework.size()*0.4) + (stud.at(i).exam)*0.6;
+        //std::cout<<stud.at(i).finalGrade<<std::endl;
     }
-    sort(stud,stud+N, sortStudents);
+    std::sort(stud.begin(),stud.end(), sortStudents);
 }
 
-bool sortStudents(student A, student B){
-    if(B.name > A.name || B.surname > A.surname){
+bool sortStudents(student A, student B)
+{
+    if(B.name > A.name || B.surname > A.surname)
+    {
         return true;
     }
     return false;

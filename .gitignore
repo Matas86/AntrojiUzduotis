@@ -33,3 +33,6 @@
 *.layout
 bin/
 obj/
+*.o
+*.depend
+*.txt
