@@ -2,6 +2,6 @@
 
 int main()
 {
-    StartProgram();
+    StartProgram(); //pradedama programa
 
 }
