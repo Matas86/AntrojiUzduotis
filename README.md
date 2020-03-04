@@ -15,7 +15,7 @@ Programą sudaro du .cpp failai, viename atlikta programa su C kalbos masyvais, 
   ./main
   ```
 - Pagal aprašytus programos nurodymus pasirinkite norimus parametrus.
-# v0.4 versijos paleidimas
+## v0.4 versijos paleidimas
 - Paleiskite terminalą ir atsidarykite jame projekto aplanką.
 - Į terminalą veskite komandas paeiliui: 
   ```
