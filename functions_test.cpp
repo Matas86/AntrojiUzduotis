@@ -372,21 +372,15 @@ void Generate(int n)
 
     for(int i=0;i<n;i++)
     {
-        student *currentStud = new student();
-        currentStud->surname = "Pavarde"+std::to_string(i);
-        write<<std::setw(30)<<std::left<<currentStud->surname;
-        currentStud->name = "Vardas"+std::to_string(i);
-        write<<std::setw(30)<<std::left<<currentStud->name;
+        write<<std::setw(30)<<std::left<<"pavarde"+std::to_string(i);
+        write<<std::setw(30)<<std::left<<"vardas"+std::to_string(i);
 
         for(int j=0;j<10;j++)
         {
-            currentStud->homework.push_back(rand() %10 +1);
-            write<<std::setw(5)<<currentStud->homework[j];
+            write<<std::setw(5)<<rand() %10 +1;
         }
 
-        currentStud->exam = (rand() %10 +1);
-        write<<std::setw(5)<<currentStud->exam<<std::endl;
-        delete currentStud;
+        write<<std::setw(5)<<rand() %10 +1<<std::endl;
     }
     write.close();
     auto end = std::chrono::high_resolution_clock::now(); 
@@ -400,16 +394,16 @@ void Generate(int n)
     std::cout<<"Failas perskaitytas per: "<<std::fixed<<std::setprecision(2)<<diff.count()<<"s"<<std::endl;
 
     start = std::chrono::high_resolution_clock::now(); 
-    std::sort(Students.begin(),Students.end(), sortStudentsByGrade);
-    end = std::chrono::high_resolution_clock::now();
-    diff = end-start;
-    std::cout<<"Studentai didejimo tvarka surusiuoti per: "<<std::fixed<<std::setprecision(2)<<diff.count()<<"s"<<std::endl;
-
-    start = std::chrono::high_resolution_clock::now(); 
     FinalCounter(Students);
     end = std::chrono::high_resolution_clock::now();
     diff = end-start;
     std::cout<<"Studentai atskirti i dvi grupes per: "<<std::fixed<<std::setprecision(2)<<diff.count()<<"s"<<std::endl;
+
+    start = std::chrono::high_resolution_clock::now(); 
+    std::sort(Students.begin(),Students.end(), sortStudentsByGrade);
+    end = std::chrono::high_resolution_clock::now();
+    diff = end-start;
+    std::cout<<"Studentai didejimo tvarka surusiuoti per: "<<std::fixed<<std::setprecision(2)<<diff.count()<<"s"<<std::endl;
 
     start = std::chrono::high_resolution_clock::now(); 
     std::string filename2 = "notcool"+std::to_string(n)+".txt";
