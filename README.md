@@ -36,7 +36,7 @@ Programą sudaro du .cpp failai, viename atlikta programa su C kalbos masyvais, 
 - Ši programos versija leidžia naudotojui pateikti savo duomenų failą ir įvesti jo pavadinimą
 - Programa yra atskirta į .cpp ir .h failus
 - Sukurtas makefile ir pilnai funkcionuojantis sukonfiguruotas make failas kiekvieną kartą atnaujinamas, jeigu .cpp ar .h failai yra atnaujinami paleidus komandą make.
-## 4. [v0.4 programos versija](https://github.com/Matas86/AntrojiUzduotis/releases/tag/v0.4)
+## 4. [v0.4.1 programos versija](https://github.com/Matas86/AntrojiUzduotis/releases/tag/v0.4.1)
 - Ši programos versija leidžia vartotojui generuoti atsitiktinius duomenis į naujus failus pavadinimais studentai1000, studentai10000 ir t.t.
 - Ši programos versija rūšiuoja studentus pagal jų vidurkį atitinkamai virš 5 balų bei žemiau.
 - Atskiras dvi studentų grupes išveda į du atskirus duomenų failus.
