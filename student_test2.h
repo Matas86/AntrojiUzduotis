@@ -1,8 +1,10 @@
-#ifndef STUDENT_TEST_H
-#define STUDENT_TEST_H
+#ifndef STUDENT_TEST2_H
+#define STUDENT_TEST2_H
 
 #include <string>
 #include <vector>
+#include <list>
+#include <deque>
 
 struct student
 {

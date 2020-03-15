@@ -1,5 +1,5 @@
-#ifndef FUNCTIONS_TEST_H
-#define FUNCTIONS_TEST_H
+#ifndef FUNCTIONS_TEST2_H
+#define FUNCTIONS_TEST2_H
 
 #include <iostream>
 #include <limits>
@@ -12,8 +12,10 @@
 #include <sstream>
 #include <chrono>
 #include <string>
+#include <list>
+#include <deque>
 
-#include "student_test.h"
+#include "student_test2.h"
 
 void Skaityk(std::vector<student> &stud);
 
@@ -27,7 +29,7 @@ bool sortStudents(student A, student B);
 
 void StartProgram();
 
-void Generate(int n);
+void Generate();
 
 bool sortStudentsByGrade(student A, student B);
 
