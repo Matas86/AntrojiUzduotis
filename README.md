@@ -67,7 +67,7 @@ make test2
 - Ši programos versija ištestuoja nuskaitytų iš duomenų failų į tris atskirus konteinerius atskyrimą dviem būdais, nurodytais užduoties sąlygoje.
 - Atskirų studentų grupių neišveda į duomenų failus, kadangi svarbiausia yra testavimo laikai.
 # Testavimo laikai 
-![Testo laikai](https://imgur.com/cTw848j)
+![Testo laikai](https://i.imgur.com/UEoBCVy.png)
 # Testavimui panaudoto kompiuterio specifikacijos:
 - Intel i7 3770k boosted to 3,9GHz (8 cores)
 - 8GB DDR3 1600MHz
