@@ -29,6 +29,14 @@ Programą sudaro du .cpp failai, viename atlikta programa su C kalbos masyvais, 
 make test2
 ./main
 ```
+## v1.0 versijos paleidimas
+- Paleiskite terminalą ir atsidarykite jame projekto aplanką.
+- Į terminalą įveskite komandas paeiliui:
+```
+make test2
+./main
+```
+
 
 # Programos išleidimai
 ## 1. [v0.1.1 programos versija](https://github.com/Matas86/AntrojiUzduotis/releases/tag/v0.1.1)
@@ -52,10 +60,14 @@ make test2
 - Ši programos versija leidžia vartotojui paleisti testinę programos versija, kurioje sugeneruojami atsitiktiniai duomenys į duomenų failus studentai1000, studentai10000 ir t.t.
 - Ši programos versija ištestuoja failų nuskaitymo, stundetų atskyrimo bei studentų išrikiavimo laikus naudojant tris skirtingus konteinerius - vector, list ir deque.
 - Atskirų studentų grupių neišveda į duomenų failus, kadangi svarbiausia yra testavimo laikai.
-
 # Testavimo laikai 
 ![Testo laikai](https://i.imgur.com/lFcy8sH.png)
-
+## 6. [v1.0 programos versija](https://github.com/Matas86/AntrojiUzduotis/releases/tag/v1.0)
+- Ši programos versija leidžia vartotojui paleisti testinę programos versiją, kurioje sugeneruojami atsitiktiniai duomenys į duomenų failus studentai1000, studentai10000 ir t.t.
+- Ši programos versija ištestuoja nuskaitytų iš duomenų failų į tris atskirus konteinerius atskyrimą dviem būdais, nurodytais užduoties sąlygoje.
+- Atskirų studentų grupių neišveda į duomenų failus, kadangi svarbiausia yra testavimo laikai.
+# Testavimo laikai 
+![Testo laikai](https://imgur.com/cTw848j)
 # Testavimui panaudoto kompiuterio specifikacijos:
 - Intel i7 3770k boosted to 3,9GHz (8 cores)
 - 8GB DDR3 1600MHz
