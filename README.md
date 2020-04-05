@@ -56,6 +56,12 @@ make test2
 - Ši programos versija rūšiuoja studentus pagal jų vidurkį atitinkamai virš 5 balų bei žemiau.
 - Atskiras dvi studentų grupes išveda į du atskirus duomenų failus.
 - Matuoja kiekvieno proceso testavimo metu laiko sąnaudas.
+#Testavimo laikai
+![Testo 1 laikai](https://i.imgur.com/uMCOVSg.png)
+![Testo 2 laikai](https://i.imgur.com/vPU36D7.png)
+![Testo 3 laikai](https://i.imgur.com/nm5V6Po.png)
+![Testo 4 laikai](https://i.imgur.com/M0rVJzJ.png)
+![Testo 5 laikai](https://i.imgur.com/DxxCXr9.png)
 ## 5. [v0.5 programos versija](https://github.com/Matas86/AntrojiUzduotis/releases/tag/v0.5)
 - Ši programos versija leidžia vartotojui paleisti testinę programos versija, kurioje sugeneruojami atsitiktiniai duomenys į duomenų failus studentai1000, studentai10000 ir t.t.
 - Ši programos versija ištestuoja failų nuskaitymo, stundetų atskyrimo bei studentų išrikiavimo laikus naudojant tris skirtingus konteinerius - vector, list ir deque.
