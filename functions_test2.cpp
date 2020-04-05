@@ -456,8 +456,8 @@ void FinalCounter(std::deque<student> &stud)
            stud.at(i).homeworkSum+=stud.at(i).homework.at(j);
         }
         stud.at(i).finalGrade = (stud.at(i).homeworkSum*1.0/stud.at(i).homework.size()*0.4) + (stud.at(i).exam)*0.6;
-        if(stud.at(i).finalGrade>=5) stud.at(i).cool = true;
-        else stud.at(i).cool = false;
+        //if(stud.at(i).finalGrade>=5) stud.at(i).cool = true;
+        //else stud.at(i).cool = false;
     }
     std::sort(stud.begin(),stud.end(), sortStudents);
 }
@@ -646,4 +646,171 @@ void Generate()
         dequeTimes.pop_front();
         }
     
+}
+void Generate2()
+{
+    std::cout<<"Pradedami testavimai atskiriant dviem būdais. Tai gali užtrukti. \n";
+    std::deque<double> vectorTimes, listTimes, dequeTimes;
+    std::chrono::duration<double> diff;
+    for(int i=1000;i<=10000000; i*=10)
+    {
+        std::string filename = "studentai"+std::to_string(i)+".txt";
+        GenerateToFile(i, filename);
+
+        std::vector<student> vectorStudents;
+        std::list<student> listStudents;
+        std::deque<student> dequeStudents;
+
+        //nuskaitymas
+        Skaityk(vectorStudents, filename);
+
+        Skaityk(listStudents, filename);
+
+        Skaityk(dequeStudents, filename);
+
+         //skaiciavimas
+        FinalCounter(vectorStudents);
+ 
+        std::list<student>::iterator it = listStudents.begin();
+        for(int i = 0; i < listStudents.size(); i++, it++)
+        {
+            (*it).finalGrade = FinalCounter(*it);
+        }
+
+        FinalCounter(dequeStudents);
+
+        //Atskyrimas 1 būdu
+        std::vector<student> vectorKietiakai, vectorLievakai;
+        std::list<student> listKietiakai, listLievakai;
+        std::deque<student> dequeKietiakai, dequeLievakai;
+
+        // su vektoriumi
+        auto start = std::chrono::high_resolution_clock::now(); 
+        for(int j = 0; j < i; j++) {
+            if(vectorStudents.at(j).finalGrade >= 5) {
+                vectorKietiakai.push_back(vectorStudents.at(j));
+            }
+            else vectorLievakai.push_back(vectorStudents.at(j));
+        }
+        auto end = std::chrono::high_resolution_clock::now();
+        diff = end-start;
+        vectorTimes.push_back(diff.count());
+
+        vectorKietiakai.clear();
+        vectorLievakai.clear();
+
+        // su listu
+        it = listStudents.begin();
+
+        start = std::chrono::high_resolution_clock::now(); 
+        for(int j = 0; j < i; j++, it++) {
+            if((*it).finalGrade >= 5) listKietiakai.push_back((*it));
+            else listLievakai.push_back((*it));
+        }
+        end = std::chrono::high_resolution_clock::now();
+        diff = end-start;
+        listTimes.push_back(diff.count());
+
+        listKietiakai.clear();
+        listLievakai.clear();
+
+        // su deque
+        start = std::chrono::high_resolution_clock::now();
+        for(student &s: dequeStudents) {
+            if(s.finalGrade >= 5) {
+                dequeKietiakai.push_back(s);
+            }
+            else dequeLievakai.push_back(s);
+        }
+        end = std::chrono::high_resolution_clock::now();
+        diff = end-start;
+        dequeTimes.push_back(diff.count());
+
+        dequeKietiakai.clear();
+        dequeLievakai.clear();
+
+
+        //Atskyrimas antruoju būdu
+
+        //su vektoriumi
+        start = std::chrono::high_resolution_clock::now();
+
+        vectorKietiakai.resize(vectorStudents.size());
+        auto cpyIt = std::copy_if(
+            vectorStudents.begin(), 
+            vectorStudents.end(), 
+            vectorKietiakai.begin(),
+            [](student s){return s.exam >= 5;});
+        vectorKietiakai.resize(std::distance(vectorKietiakai.begin(), cpyIt));
+
+        vectorStudents.erase(
+            std::remove_if(
+                vectorStudents.begin(), 
+                vectorStudents.end(), 
+                [](student s){return s.exam >= 5;}
+            ),
+            vectorStudents.end()
+        );
+        end = std::chrono::high_resolution_clock::now();
+        diff = end-start;
+        vectorTimes.push_back(diff.count());
+
+        vectorKietiakai.clear();
+        vectorLievakai.clear();
+
+        // su listu
+        start = std::chrono::high_resolution_clock::now();       
+        for(student &s: listStudents) {
+            if(s.finalGrade >= 5) listKietiakai.push_back(s);
+        }
+        listStudents.remove_if([](student s){return s.finalGrade >= 5;});
+        end = std::chrono::high_resolution_clock::now();
+        diff = end-start;
+        listTimes.push_back(diff.count());
+
+        listKietiakai.clear();
+        listLievakai.clear();
+
+        // su deque
+        start = std::chrono::high_resolution_clock::now();  
+        for(student &s: dequeStudents) {
+            if(s.finalGrade >= 5) dequeKietiakai.push_back(s);
+        }
+        dequeStudents.erase(
+            std::remove_if(
+                dequeStudents.begin(),
+                dequeStudents.end(),
+                [](student s){return s.exam >= 5;}
+            ),
+            dequeStudents.end()
+        );
+        end = std::chrono::high_resolution_clock::now();
+        diff = end-start;
+        dequeTimes.push_back(diff.count());
+
+        dequeKietiakai.clear();
+        dequeLievakai.clear();
+    }
+    // Isvedami rezultatai
+    std::cout << "----------------------------------------------------------------------------------------- \n";
+    std::cout << "Skaicius        Funkcija           Laikas su vector | Laikas su listu | Laikas su deque \n";
+    std::cout << "----------------------------------------------------------------------------------------- \n";
+
+    for (int i = 1000; i <= 10000000; i*=10) {
+        std::cout << std::setw(13) << std::left << i << std::setw(25) << std::left << "Pirmu budu atskirti" << std::setw(16) 
+            << std::left << std::setprecision(4) << std::fixed << vectorTimes.front() << std::setw(25) << std::left 
+            << std::setprecision(4) << std::fixed << listTimes.front() << std::setprecision(4) << std::fixed << dequeTimes.front() << "\n";
+        vectorTimes.pop_front();
+        listTimes.pop_front();
+        dequeTimes.pop_front();
+
+        std::cout << std::setw(13) << std::left << i << std::setw(25) << std::left << "Antru budu atskirti" << std::setw(16) 
+            << std::left << std::setprecision(4) << std::fixed << vectorTimes.front() 
+            << std::setw(25) << std::left << std::setprecision(4) << std::fixed << listTimes.front() 
+            << std::setprecision(4) << std::fixed << dequeTimes.front() << "\n";
+        vectorTimes.pop_front();
+        listTimes.pop_front();
+        dequeTimes.pop_front();
+    }
+
 }

@@ -31,6 +31,8 @@ void StartProgram();
 
 void Generate();
 
+void Generate2();
+
 bool sortStudentsByGrade(student A, student B);
 
 

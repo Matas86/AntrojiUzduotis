@@ -2,6 +2,6 @@
 
 int main()
 {
-    Generate();
+    Generate2();
     
 }
